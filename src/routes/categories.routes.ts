@@ -1,9 +1,8 @@
 import { Router } from 'express'
-import { CategoriesRepository } from '../modules/cars/repositories/CategoriesRepository';
-import { CreateCategoryService } from '../modules/cars/services/CreateCategoryService';
+import { createCategoryControllerr } from '../modules/cars/useCases/createCategory';
+import { listCategoriesController } from '../modules/cars/useCases/listCategories';
 
 const categoriesRoutes = Router();
-const categoriesRepository = new CategoriesRepository();
 
 /**
  * Services são altos nivéis, rotas são baixos niveis, pois estão mais perto com o contato com o usuário,
@@ -11,17 +10,11 @@ const categoriesRepository = new CategoriesRepository();
  * */
 
 categoriesRoutes.post("/", (req, res) => {
-    const { name, description } = req.body
-
-    const createCategoriesService = new CreateCategoryService(categoriesRepository);
-    createCategoriesService.execute({ name, description });
-
-    return res.status(201).send()
+    return createCategoryControllerr.handle(req, res);
 })
 
 categoriesRoutes.get('/', (req, res) => {
-    const all = categoriesRepository.list();
-    return res.status(200).json([...all])
+    return listCategoriesController.handle(req, res);
 })
 
 export { categoriesRoutes }
