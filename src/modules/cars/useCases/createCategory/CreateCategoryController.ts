@@ -8,10 +8,17 @@ class CreateCategoryController {
     constructor(private createCategoryUseCase: CreateCategoryUseCase) { }
 
     handle(req: Request, res: Response) {
-        const { name, description } = req.body;
+        try {
+            const { name, description } = req.body;
+            this.createCategoryUseCase.execute({ name, description });
 
-        this.createCategoryUseCase.execute({ name, description });
-        return res.status(201).send()
+            return res.status(201).send()
+        } catch (err) {
+            if (err instanceof Error) {
+                return res.status(400).json({ error: err.message })
+            }
+        }
+
     }
 }
 
