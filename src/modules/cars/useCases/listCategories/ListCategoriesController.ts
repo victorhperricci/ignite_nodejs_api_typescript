@@ -8,8 +8,18 @@ class ListCategoriesController {
     constructor(private listCategoriesUseCase: ListCategoriesUseCase) { }
 
     handle(req: Request, res: Response): Response {
-        const all = this.listCategoriesUseCase.execute();
-        return res.status(200).json([...all])
+
+        try {
+            const allCategories = this.listCategoriesUseCase.execute();
+            return res.status(200).json(allCategories)
+        } catch (err: any) {
+            return res.status(400)
+                .json({
+                    error: err.message,
+                    info: "Not possible to list all categories"
+                })
+        }
+
     }
 }
 

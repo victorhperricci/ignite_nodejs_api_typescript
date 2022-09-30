@@ -22,3 +22,39 @@ COLOCA-LO COMO PARARAMETRO DO USECASE, E COLOCAR O USECASE COMO PARAMETRO NO CON
 
 
 USECASES => É NA ONDE ENTRA AS REGRAS DE NEGOCIO, EX: VERIFICAR SE EXISTE A CATEGORIA, SE NAO, AI SIM PODE CRIAR
+
+
+
+
+================================================ DOCKER ================================================
+
+docker ps       -> olha os containers que estão rodando
+docker ps -a    -> olha todos os container q foram criados, mesmo estando off
+
+docker rm "id container" -> remove o container
+
+docker run -p 3333:3333 rentx -> vai rodar o projeto
+
+docker exec -it "name_container" /bin/bash  -> entra no projeto no servidor do docker
+
+
+docker start "id container" -> inicia o container
+docker stop "id container"  -> para o container
+
+docker logs "nome container" -> aparece os ultimos logs
+docker logs "nome container" -f -> fica observando os logs
+
+
+docker-compose up       -> roda o projeto com o docker-compose
+docker-compose up -d    -> roda o projeto com o docker-compose em background
+docker-compose start    -> inicia todos os serviços que estiver dentro do arquivo docker-compose.yml
+docker-compose stop     -> para todos os serviços que estiver dentro do arquivo docker-compose.yml
+docker-compose down     -> remove todos os serviços que estiver dentro do arquivo docker-compose.yml
+docker-compose up --force-recreate -> força a recriação se caso houver mudanças no docker-compose.yml
+
+docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq) -> mostra os IP'S
+docker inspect --format='{{range, .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "nome container" -> mostra o IP
+docker exec "NOME CONTAINER" cat /etc/hosts -> mostra o IP
+
+
+========================================================================================================

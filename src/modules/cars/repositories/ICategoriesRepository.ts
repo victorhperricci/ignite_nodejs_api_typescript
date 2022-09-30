@@ -4,7 +4,7 @@ import { Category } from "../models/Category";
 type ICreateCategoryDTO = {
     name: string;
     description: string;
-}
+};
 
 
 interface ICategoriesRepository {
