@@ -1,16 +1,14 @@
 import { Request, Response } from "express";
 import { ListCategoriesUseCase } from "./ListCategoriesUseCase";
 
-// import { } from '';
-
 class ListCategoriesController {
 
     constructor(private listCategoriesUseCase: ListCategoriesUseCase) { }
 
-    handle(req: Request, res: Response): Response {
+    async handle(req: Request, res: Response): Promise<Response> {
 
         try {
-            const allCategories = this.listCategoriesUseCase.execute();
+            const allCategories = await this.listCategoriesUseCase.execute();
             return res.status(200).json(allCategories)
         } catch (err: any) {
             return res.status(400)
